@@ -21,12 +21,20 @@ CCFLAGS+=-Istm32h/STM32F4xx/Include
 
 CCFLAGS_EXTRA=--specs=nosys.specs -nostdlib
 
-LDFLAGS=-Wl,--gc-section --specs=nano.specs --specs=nosys.specs -TSTM32F401RETx_FLASH.ld
+LDFLAGS=-Wl,--gc-section -nostdlib --specs=nano.specs --specs=nosys.specs -TSTM32F401RETx_FLASH.ld
+
+all: clean build link
 
 build:
+	@echo "Compiling..."
 	$(AS) $(ASFLAGS) -c $(STARTUP_FILE_DIR)/$(STARTUP_FILE).s
 	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c
 	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c main.c
 
 link:
+	@echo "Linking *.o int elf"
 	$(LD) $(LDFLAGS) $(STARTUP_FILE).o system_stm32f4xx.o main.o -o main.elf
+
+clean:
+	@echo "Removing *.o"
+	del *.o

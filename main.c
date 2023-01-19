@@ -1,6 +1,11 @@
 #include "stm32.h"
 
-int main()
+void _init(void)
+{
+	return;
+}
+
+int main(void)
 {
 	while(1)
 	{
