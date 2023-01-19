@@ -3,4 +3,4 @@
 	url = https://github.com/shovdmi/stm32h.git
 [submodule "CMSIS_5"]
 	path = CMSIS_5
-	url = ./CMSIS_5
+	url = https://github.com/ARM-software/CMSIS_5.git
