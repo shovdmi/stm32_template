@@ -16,5 +16,24 @@
 		],
 		"directory": "C:/Work/flash_programmer",
 		"file": "main.c"
+	},
+	{
+		"arguments": [
+			"arm-none-eabi-gcc",
+			"-c",
+			"-mthumb",
+			"-mcpu=cortex-m4",
+			"-DSTM32F4",
+			"-DSTM32F401xE",
+			"-Istm32h",
+			"-Istm32h/STM32F4xx",
+			"-Istm32h/STM32F4xx/Include",
+			"-ICMSIS_5/CMSIS/Core/Include",
+			"-o",
+			"stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.o",
+			"stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c"
+		],
+		"directory": "C:/Work/flash_programmer",
+		"file": "stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c"
 	}
 ]
