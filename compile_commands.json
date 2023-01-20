@@ -3,12 +3,13 @@
 		"arguments": [
 			"arm-none-eabi-gcc",
 			"-c",
-			"-mcpu=cortex-m4",
 			"-mthumb",
+			"-mcpu=cortex-m4",
 			"-DSTM32F4",
 			"-DSTM32F401xE",
 			"-Istm32h",
 			"-Istm32h/STM32F4xx",
+			"-Istm32h/STM32F4xx/Include",
 			"-ICMSIS_5/CMSIS/Core/Include",
 			"-o",
 			"main.c"
