@@ -5,7 +5,7 @@ LD=arm-none-eabi-gcc
 MCPU=cortex-m4
 
 ASFLAGS= -x,assembler-with-cpp
-ASFLAGS= -O0
+ASFLAGS= -O0 -g3 -ggdb
 ASFLAGS= -mthumb -mcpu=$(MCPU)
 
 STARTUP_FILE_DIR=stm32h/STM32F4xx/Source/Templates/gcc/
