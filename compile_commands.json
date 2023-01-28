@@ -12,6 +12,7 @@
 			"-Istm32h/STM32F4xx/Include",
 			"-ICMSIS_5/CMSIS/Core/Include",
 			"-o",
+			"main.o",
 			"main.c"
 		],
 		"directory": "C:/Work/flash_programmer",

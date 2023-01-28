@@ -32,7 +32,7 @@ build: compile link
 
 compile:
 	@echo "Compiling..."
-	$(AS) $(ASFLAGS) -c $(STARTUP_FILE_DIR)/$(STARTUP_FILE).s
+	$(AS) $(ASFLAGS) -c $(STARTUP_FILE_DIR)/$(STARTUP_FILE).s -g3 -ggdb
 	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c
 	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c main.c
 
@@ -43,3 +43,6 @@ link:
 clean:
 	@echo "Removing *.o"
 	del *.o
+
+run:
+	"%USERPROFILE%\AppData\Roaming\xPacks\qemu-arm\xpack-qemu-arm-7.1.0-1\bin\qemu-system-gnuarmeclipse.exe" -cpu cortex-m4 -machine STM32F4-Discovery -gdb tcp::3333 -nographic -kernel "main.elf"

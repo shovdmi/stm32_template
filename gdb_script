@@ -1,0 +1,39 @@
+# You can put it in the project folder and load than by
+# `gdb -x gdb_script -q`
+# or
+# `(gdb) source gdb_script`
+
+
+set target-charset ASCII
+set pagination off
+set print pretty on
+set confirm off
+
+# ~/.gdb_history. To prevent GDB from reading initialization files, give it the '--nx'
+#set history save on
+#set history expansion on
+
+# Don't forget to set logging off in the end of script (if you need)
+#set logging file gdb.txt
+#set logging on
+
+
+# Octal numbers begin with `0', Decimal numbers END with `.', and Hexadecimal numbers begin with `0x'.
+#set input-radix 0x10
+
+#set output-radix 16
+
+#set trace-commands on
+#set verbose on
+
+# Preventing GDB from Pausing during Long Output
+#set height 0
+#set width 0
+
+set prompt \033[01;31m(gdb) \033[0m
+
+# If logging was set previosly
+# set logging off
+
+set endian little
+# monitor endian little
