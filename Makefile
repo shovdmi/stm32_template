@@ -27,6 +27,7 @@ LDFLAGS+= -g3 -ggdb
 ASM_SOURCES = stm32h/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s
 C_SOURCES =   stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c
 C_SOURCES+= main.c
+#C_SOURCES+= printf/printf.c # printf submodule
 
 OBJFILES = $(patsubst %.s, %.o, $(notdir ${ASM_SOURCES}))
 OBJFILES+= $(patsubst %.c, %.o, $(notdir ${C_SOURCES}))
