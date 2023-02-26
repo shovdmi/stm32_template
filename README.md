@@ -9,3 +9,5 @@
 4. In `compile_commands.json` : 
     * change `-DSTM32F4`, `-DSTM32F401xE`, `-Istm32/STM32F4`, `-mcpu=cortex-m4` accoring to your cpu
     * change `"directory": "C:/Path/to/your/project"`
+5.  `make all`
+ or `make -f Makefile_simple all`

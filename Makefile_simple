@@ -8,6 +8,9 @@ ASFLAGS= -x,assembler-with-cpp
 ASFLAGS= -O0 -g3 -ggdb
 ASFLAGS= -mthumb -mcpu=$(MCPU)
 
+STARTUP_FILE_DIR=stm32h/STM32F4xx/Source/Templates/gcc/
+STARTUP_FILE=startup_stm32f401xe
+
 CCFLAGS= -mthumb -mcpu=$(MCPU)
 CCFLAGS+=-DSTM32F4
 CCFLAGS+=-DSTM32F401xE
@@ -23,39 +26,23 @@ LDFLAGS = -mthumb -mcpu=$(MCPU)
 LDFLAGS+= -Wl,--gc-section -nostdlib --specs=nano.specs --specs=nosys.specs -TSTM32F401RETx_FLASH.ld
 LDFLAGS+= -g3 -ggdb
 
-# File order is important!
-ASM_SOURCES = stm32h/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s
-C_SOURCES =   stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c
-C_SOURCES+= main.c
+all: clean build
 
-OBJFILES = $(patsubst %.s, %.o, $(notdir ${ASM_SOURCES}))
-OBJFILES+= $(patsubst %.c, %.o, $(notdir ${C_SOURCES}))
+build: compile link
 
-SOURCEDIRS = $(dir $(ASM_SOURCES))
-SOURCEDIRS+= $(dir $(C_SOURCES))
+compile:
+	@echo "Compiling..."
+	$(AS) $(ASFLAGS) -c $(STARTUP_FILE_DIR)/$(STARTUP_FILE).s -g3 -ggdb
+	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c
+	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c main.c
 
-VPATH = $(SOURCEDIRS)
-
-all: build
-	@echo "SOURCEDIRS = " $(SOURCEDIRS)
-	@echo "OBJFILES = " $(OBJFILES)
-
-build: ${OBJFILES}
-	@echo Linking...
-	$(LD) $(LDFLAGS) $^ -o main.elf
-
-%.o: %.c
-	@echo Compiling: $^ into $@
-	$(CC) $(CCFLAGS) $(CCFLAGS_EXTRA) -c $^ -o $@
-
-%.o: %.s
-	@echo Compiling assembly: $^ into $@
-	$(AS) $(ASFLAGS) -c $^ -o $@
+link:
+	@echo "Linking *.o int elf"
+	$(LD) $(LDFLAGS) $(STARTUP_FILE).o system_stm32f4xx.o main.o -o main.elf
 
 clean:
-	@echo "Removing *.o and *.elf"
+	@echo "Removing *.o"
 	del *.o
-	del *.elf
 
 run:
 	"%USERPROFILE%\AppData\Roaming\xPacks\qemu-arm\xpack-qemu-arm-7.1.0-1\bin\qemu-system-gnuarmeclipse.exe" -cpu cortex-m4 -machine STM32F4-Discovery -gdb tcp::3333 -nographic -kernel "main.elf"
