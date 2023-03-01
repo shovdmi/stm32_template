@@ -1,6 +1,7 @@
 AS=arm-none-eabi-gcc
 CC=arm-none-eabi-gcc
 LD=arm-none-eabi-gcc
+OBJCOPY=arm-none-eabi-objcopy
 
 MCPU=cortex-m4
 
@@ -37,9 +38,12 @@ SOURCEDIRS+= $(dir $(C_SOURCES))
 
 VPATH = $(SOURCEDIRS)
 
-all: build
+all: build hex
 	@echo "SOURCEDIRS = " $(SOURCEDIRS)
 	@echo "OBJFILES = " $(OBJFILES)
+
+hex: build
+	$(OBJCOPY) main.elf -O ihex main.hex
 
 build: ${OBJFILES}
 	@echo Linking...
