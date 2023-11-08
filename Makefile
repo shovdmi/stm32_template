@@ -66,5 +66,19 @@ clean:
 	del *.o
 	del *.elf
 
+openocd:
+	openocd \
+	-f board/st_nucleo_f4.cfg \
+	-c "init" \
+	-c "reset init" \
+	-c "flash probe 0" \
+	-c "flash info 0"
+# 	-f interface/stlink.cfg
+# for debugging add :        -d3
+
+debug: main.elf
+	$(GDB) main.elf -ex "target extended-remote :3333" -ex "mon reset" -ex "load"
+	#$(GDB) main.elf -ex "target extended-remote :3333" -ex "display/i $$pc" -ex "load"
+
 run:
 	"%USERPROFILE%\AppData\Roaming\xPacks\qemu-arm\xpack-qemu-arm-7.1.0-1\bin\qemu-system-gnuarmeclipse.exe" -cpu cortex-m4 -machine STM32F4-Discovery -gdb tcp::3333 -nographic -kernel "main.elf"
