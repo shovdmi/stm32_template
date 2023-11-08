@@ -4,18 +4,18 @@
 			"arm-none-eabi-gcc",
 			"-c",
 			"-mthumb",
-			"-mcpu=cortex-m4",
-			"-DSTM32F4",
-			"-DSTM32F401xE",
+			"-mcpu=cortex-m7",
+			"-DSTM32F7",
+			"-DSTM32F746xx",
 			"-Istm32h",
-			"-Istm32h/STM32F4xx",
-			"-Istm32h/STM32F4xx/Include",
+			"-Istm32h/STM32F7xx",
+			"-Istm32h/STM32F7xx/Include",
 			"-ICMSIS_5/CMSIS/Core/Include",
 			"-o",
 			"main.o",
 			"main.c"
 		],
-		"directory": "C:/Work/flash_programmer",
+		"directory":  "C:/Work/stm32f746_Disco",
 		"file": "main.c"
 	},
 	{
@@ -23,18 +23,18 @@
 			"arm-none-eabi-gcc",
 			"-c",
 			"-mthumb",
-			"-mcpu=cortex-m4",
-			"-DSTM32F4",
-			"-DSTM32F401xE",
+			"-mcpu=cortex-m7",
+			"-DSTM32F7",
+			"-DSTM32F746xx",
 			"-Istm32h",
-			"-Istm32h/STM32F4xx",
+			"-Istm32h/STM32F7xx",
 			"-Istm32h/STM32F4xx/Include",
 			"-ICMSIS_5/CMSIS/Core/Include",
 			"-o",
-			"stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.o",
-			"stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c"
+			"stm32h/STM32F7xx/Source/Templates/system_stm32f7xx.o",
+			"stm32h/STM32F7xx/Source/Templates/system_stm32f7xx.c"
 		],
-		"directory": "C:/Work/flash_programmer",
-		"file": "stm32h/STM32F4xx/Source/Templates/system_stm32f4xx.c"
+		"directory": "C:/Work/stm32f746_Disco",
+		"file": "stm32h/STM32F7xx/Source/Templates/system_stm32f7xx.c"
 	}
 ]
