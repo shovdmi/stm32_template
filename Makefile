@@ -68,7 +68,7 @@ clean:
 
 openocd:
 	openocd \
-	-f board/st_nucleo_f4.cfg \
+	-f board/stm32f7discovery.cfg \
 	-c "init" \
 	-c "reset init" \
 	-c "flash probe 0" \
