@@ -1,18 +1,30 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.8.0)
-ENABLE_LANGUAGE(ASM)
 
 #-- System ---------------------------------------------------------------------
 SET(CMAKE_SYSTEM_NAME Generic)
 SET(CMAKE_SYSTEM_PROCESSOR arm)
 
 #-- Toolchain ------------------------------------------------------------------
-SET(CMAKE_C_COMPILER   "arm-none-eabi-gcc")
-SET(CMAKE_CXX_COMPILER "arm-none-eabi-g++")
-SET(CMAKE_ASM_COMPILER "arm-none-eabi-gcc")
-SET(CMAKE_LINKER       "arm-none-eabi-gcc")
-SET(CMAKE_OBJCOPY      "arm-none-eabi-objcopy") # CACHE STRING "objcopy tool")
-SET(CMAKE_OBJDUMP      "arm-none-eabi-objdump") # CACHE STRING "objdump tool")
-SET(CMAKE_SIZE         "arm-none-eabi-size")    # CACHE STRING "size tool")
+set(TOOLCHAIN_PATH  "")
+SET(CMAKE_C_COMPILER   ${TOOLCHAIN_PATH}arm-none-eabi-gcc)
+SET(CMAKE_CXX_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-g++)
+SET(CMAKE_ASM_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-gcc)
+SET(CMAKE_LINKER       ${TOOLCHAIN_PATH}arm-none-eabi-gcc)
+SET(CMAKE_OBJCOPY      ${TOOLCHAIN_PATH}arm-none-eabi-objcopy CACHE STRING "objcopy tool")
+SET(CMAKE_OBJDUMP      ${TOOLCHAIN_PATH}arm-none-eabi-objdump CACHE STRING "objdump tool")
+SET(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size    CACHE STRING "size tool")
+
+
+#  Without this flag, CMake is unable to pass the test compilation check
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+# To fix compilation check: enable either these or CMAKE_TRY_COMPILE_TARGET_TYPE flag
+#set(CMAKE_C_COMPILER_WORKS TRUE)
+#set(CMAKE_CXX_COMPILER_WORKS TRUE)
+
+ENABLE_LANGUAGE(C)
+ENABLE_LANGUAGE(CXX)
+ENABLE_LANGUAGE(ASM)
+
 
 #-- Common flags ---------------------------------------------------------------
 SET(COMPILER_COMMON_FLAGS "-mthumb -mcpu=cortex-m4 --specs=nosys.specs --specs=nano.specs -nostdlib -Wall -Wextra -ffunction-sections -fdata-sections")
@@ -57,7 +69,7 @@ LIST(APPEND APP_SRC main.c)
 
 #-- Linker script --------------------------------------------------------------
 SET(LDSCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RETx_FLASH.ld)
-SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LDSCRIPT} -Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map -Wl,--print-memory-usage")
+SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -T${LDSCRIPT} -Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map -Wl,--print-memory-usage")
 
 #-- Project linking ------------------------------------------------------------
 ADD_EXECUTABLE(${PROJECT_NAME}.elf ${APP_SRC})

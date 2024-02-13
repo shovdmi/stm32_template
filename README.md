@@ -11,3 +11,16 @@
     * change `"directory": "C:/Path/to/your/project"`
 5.  `make all`
  or `make -f Makefile_simple all`
+
+
+# for Cmake
+
+4. In CMakeLists.txt
+    * change `PROJECT(STM32F407)`, `ADD_DEFINITIONS(-DSTM32F407xx)`, `ADD_DEFINITIONS(-DSTM32F4)`
+    * change `stm32h/STM32F4xx/Source`, `stm32h/STM32F4xx/Include`
+    * change `startup_stm32f207xx.s`, `system_stm32f2xx.c`
+
+5. `mkdir build && cd build`
+   `cmake .. -G "Unix Makefiles"`
+   `cmake --build .`
+  
