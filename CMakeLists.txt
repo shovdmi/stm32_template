@@ -18,8 +18,8 @@ SET(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size    CACHE STRING "size
 #  Without this flag, CMake is unable to pass the test compilation check
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # To fix compilation check: enable either these or CMAKE_TRY_COMPILE_TARGET_TYPE flag
-#set(CMAKE_C_COMPILER_WORKS TRUE)
-#set(CMAKE_CXX_COMPILER_WORKS TRUE)
+#set(CMAKE_C_COMPILER_FORCED TRUE)
+#set(CMAKE_CXX_COMPILER_FORCED TRUE)
 
 ENABLE_LANGUAGE(C)
 ENABLE_LANGUAGE(CXX)
