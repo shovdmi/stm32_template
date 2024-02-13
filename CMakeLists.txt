@@ -27,11 +27,11 @@ ENABLE_LANGUAGE(ASM)
 
 
 #-- Common flags ---------------------------------------------------------------
-SET(COMPILER_COMMON_FLAGS "-mthumb -mcpu=cortex-m4 --specs=nosys.specs --specs=nano.specs -nostdlib -Wall -Wextra -ffunction-sections -fdata-sections")
+SET(COMPILER_COMMON_FLAGS "-mthumb -mcpu=cortex-m7 --specs=nosys.specs --specs=nano.specs -nostdlib -Wall -Wextra -ffunction-sections -fdata-sections")
 SET(CMAKE_C_FLAGS   "${COMPILER_COMMON_FLAGS} -std=c11"   CACHE STRING "c compiler flags")
 SET(CMAKE_CXX_FLAGS "${COMPILER_COMMON_FLAGS} -std=c++11" CACHE STRING "c++ compiler flags")
-SET(CMAKE_ASM_FLAGS "-x,assembler-with-cpp -O0 -g3 -ggdb -mthumb -mcpu=cortex-m4" CACHE STRING "assembler compiler flags")
-SET(CMAKE_LINKER_FLAGS "-mthumb -mcpu=cortex-m4 -nostdlib --specs=nosys.specs --specs=nano.specs -Wl,--gc-sections -g3 -ggdb" CACHE STRING "executable linker flags")
+SET(CMAKE_ASM_FLAGS "-x,assembler-with-cpp -O0 -g3 -ggdb -mthumb -mcpu=cortex-m7" CACHE STRING "assembler compiler flags")
+SET(CMAKE_LINKER_FLAGS "-mthumb -mcpu=cortex-m7 -nostdlib --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections" CACHE STRING "executable linker flags")
 
 
 IF(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -40,17 +40,17 @@ ENDIF()
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #-- Project config -------------------------------------------------------------
-PROJECT(STM32F401)                 # Project name
+PROJECT(STM32F746)                 # Project name
 
 #-- Defines --------------------------------------------------------------------
-ADD_DEFINITIONS(-DSTM32F401xE)
-ADD_DEFINITIONS(-DSTM32F4)
+ADD_DEFINITIONS(-DSTM32F746xx)
+ADD_DEFINITIONS(-DSTM32F7)
 
 #-- Project paths --------------------------------------------------------------
 SET(APP_PATH              app)
 SET(PLATFORM_PATH         stm32h)
-SET(DEVICE_SRC_PATH       stm32h/STM32F4xx/Source)
-SET(DEVICE_INC_PATH       stm32h/STM32F4xx/Include)
+SET(DEVICE_SRC_PATH       stm32h/STM32F7xx/Source)
+SET(DEVICE_INC_PATH       stm32h/STM32F7xx/Include)
 SET(CMSIS_CORE_INC_PATH   CMSIS_5/CMSIS/Core/Include)
 
 
@@ -61,8 +61,8 @@ INCLUDE_DIRECTORIES(${CMSIS_CORE_INC_PATH})
 INCLUDE_DIRECTORIES(${DEVICE_INC_PATH})
 
 #-- Sources list ---------------------------------------------------------------
-LIST(APPEND APP_SRC ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s)
-LIST(APPEND APP_SRC ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c)
+LIST(APPEND APP_SRC ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f746xx.s)
+LIST(APPEND APP_SRC ${DEVICE_SRC_PATH}/Templates/system_stm32f7xx.c)
 LIST(APPEND APP_SRC main.c)
 #LIST(APPEND APP_SRC printf.c)
 
