@@ -1,3 +1,7 @@
+# Build binaries
+build/
+.cache
+
 # Prerequisites
 *.d
 
