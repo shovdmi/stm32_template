@@ -6,6 +6,7 @@ SET(MCU_FAMILY "cortex-m")
 SET(MCU_SERIES "STM32F4")
 SET(MCU_CHIP   "STM32F4xx")
 SET(MCU_NAME   "STM32F401xE")
+SET(MCU_TARGET "thumbv7m-none-none-eabi") # for clang
 
 #-- Toolchain (uses ${MCU_CORE} setting)
 include(${CMAKE_CURRENT_LIST_DIR}/arm-none-eabi-toolchain.cmake)
