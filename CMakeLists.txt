@@ -1,5 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.8.0)
 
+set(CMAKE_GENERATOR "Unix Makefiles")
+message("generator is set to ${CMAKE_GENERATOR}")
+
 #-- MCU config -----------------------------------------------------------------
 SET(MCU_CORE   "cortex-m4")
 SET(MCU_FAMILY "cortex-m")
