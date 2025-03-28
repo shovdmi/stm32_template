@@ -1,4 +1,8 @@
-1. `git clone https://github.com/shovdmi/stm32f4_template.git`
+# Clone the repository
+1 `git clone --recursive git@github.com:shovdmi/stm32_template.git`
+
+or
+1. `git clone https://github.com/shovdmi/stm32_template.git`
 2. ```
     git submodule update --init stm32h
     cd stm32h
@@ -6,6 +10,8 @@
     cd ..
     ```
 3. `git submodule update --init CMSIS_5`
+
+# Set your MCU series
 4. In `compile_commands.json` : 
     * change `-DSTM32F4`, `-DSTM32F401xE`, `-Istm32/STM32F4`, `-mcpu=cortex-m4` accoring to your cpu
     * change `"directory": "C:/Path/to/your/project"`
