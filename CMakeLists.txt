@@ -57,11 +57,10 @@ set(CMSIS_CORE_INC_PATH   CMSIS_5/CMSIS/Core/Include)
 
 
 set(APP_SRC
-##    ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s
-##    ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
+    # Moved to stm32f4 library
+    #    ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s
+    #    ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
     main.c
-##
-##    printf.c
     )
 
 
@@ -70,16 +69,17 @@ add_executable(${EXECUTABLE} ${APP_SRC})
 
 
 target_sources(${EXECUTABLE} PRIVATE
-    ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
-    ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s  # enable_language(ASM). Otherwise *.s files are been ignored
-    # printf.c
+    # Moved to stm32f4 library
+    #     ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
+    #     ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s  # enable_language(ASM). Otherwise *.s files are been ignored
     )
 
 target_include_directories(${EXECUTABLE} PRIVATE
-    ${APP_PATH}
-    ${PLATFORM_PATH}
-    ${CMSIS_CORE_INC_PATH}
-    ${DEVICE_INC_PATH}
+    # Moved to stm32f4 library
+    #    ${APP_PATH}
+    #    ${PLATFORM_PATH}
+    #    ${CMSIS_CORE_INC_PATH}
+    #    ${DEVICE_INC_PATH}
     )
 
 target_compile_definitions(${EXECUTABLE} PRIVATE
@@ -89,16 +89,36 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
 
 #-- Libraries ------------------------------------------------------------------
 
+#-- STM32F4 Sources -----------------------
+add_library(stm32f4 STATIC EXCLUDE_FROM_ALL
+    ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
+    ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s  # enable_language(ASM). Otherwise *.s files are been ignored
+    )
+    # Specify include directories for stm32f4 library
+target_include_directories(stm32f4 PUBLIC 
+    ${PLATFORM_PATH}
+    ${CMSIS_CORE_INC_PATH}
+    ${DEVICE_INC_PATH}
+)
+target_compile_definitions(stm32f4 PRIVATE
+    -D${MCU_NAME}
+    -D${MCU_SERIES}
+    )
+
+#------------------------------------------
 #add_library(printf STATIC EXCLUDE_FROM_ALL
 #    printf/printf.c
 #    )
 
+
+#------------------------------------------
 #add_library(tsrb STATIC EXCLUDE_FROM_ALL
 #    tsrb/tsrb.c
 #    )
 
 
 target_link_libraries(${EXECUTABLE} PUBLIC
+    stm32f4
     # tsrb
     # printf
     )
