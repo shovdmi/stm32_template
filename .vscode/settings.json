@@ -1,0 +1,10 @@
+{
+    "clangd.arguments": [
+        "--compile-commands-dir=build",
+        "-pretty",
+        "--background-index",
+        "-j=14",
+        "--pch-storage=memory",
+        //"--enable-config"
+    ]
+}
