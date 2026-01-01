@@ -6,34 +6,11 @@ endif()
 message("generator is ${CMAKE_GENERATOR}")
 
 #-- Toolchain ------------------------------------------------------------------
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR arm)
-set(CMAKE_CROSSCOMPILING 1)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 11)
-
+include(${CMAKE_CURRENT_LIST_DIR}/arm-none-eabi-toolchain.cmake)
 message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 
-#  Without this flag, CMake is unable to pass the test compilation check
-set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
-set(CMAKE_C_COMPILER_WORKS TRUE)
-#set(CMAKE_CXX_COMPILER_WORKS TRUE)
-# To fix compilation check: enable either these or CMAKE_TRY_COMPILE_TARGET_TYPE flag
-#set(CMAKE_C_COMPILER_FORCED TRUE)
-#set(CMAKE_CXX_COMPILER_FORCED TRUE)
-
-
-## include(${CMAKE_CURRENT_LIST_DIR}/arm-none-eabi-toolchain.cmake)
-# see https://stackoverflow.com/a/17275650 about `CACHE PATH "" FORCE `
-set(TOOLCHAIN_PATH  "")
-set(CMAKE_C_COMPILER   ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
-set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-g++ CACHE PATH "" FORCE)
-set(CMAKE_ASM_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
-set(CMAKE_LINKER       ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
-set(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size CACHE PATH "" FORCE)
-
 #-- Project config -------------------------------------------------------------
-project(STM32F401)                 # Project name
+project(firmware)                 # Project name
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     MESSAGE(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt." )
@@ -41,14 +18,13 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-enable_language(ASM)                # Otherwise cmake ignores *.s files
+#enable_language(ASM)                # Otherwise cmake ignores *.s files
 
 #-- Project paths --------------------------------------------------------------
 set(APP_PATH              app)
 set(APP_SRC
     main.c
     )
-
 
 set(EXECUTABLE ${PROJECT_NAME}.elf)
 add_executable(${EXECUTABLE} ${APP_SRC})
