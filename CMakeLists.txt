@@ -5,54 +5,42 @@ if(NOT CMAKE_GENERATOR STREQUAL "Unix Makefiles")
 endif()
 message("generator is ${CMAKE_GENERATOR}")
 
-#-- Toolchain ------------------------------------------------------------------
-include(${CMAKE_CURRENT_LIST_DIR}/arm-none-eabi-toolchain.cmake)
-message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
-
-#-- Project config -------------------------------------------------------------
-project(firmware)                 # Project name
-
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     MESSAGE(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt." )
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-#enable_language(ASM)                # Otherwise cmake ignores *.s files
+#-- Toolchain ------------------------------------------------------------------
+include(${CMAKE_CURRENT_LIST_DIR}/arm-none-eabi-toolchain.cmake)
+message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 
-#-- Project paths --------------------------------------------------------------
-set(APP_PATH              app)
-set(APP_SRC
-    main.c
-    )
-
+#-- Project config -------------------------------------------------------------
+PROJECT(firmware)                 # Project name
 set(EXECUTABLE ${PROJECT_NAME}.elf)
+set(APP_SRC main.c)
 add_executable(${EXECUTABLE} ${APP_SRC})
 
-
-target_sources(${EXECUTABLE} PRIVATE
+#-- Project paths --------------------------------------------------------------
+target_sources(${EXECUTABLE} PRIVATE # Repeated calls of 'target_sources' for the same <target> append items
     )
-
 target_include_directories(${EXECUTABLE} PRIVATE
     )
-
 target_compile_definitions(${EXECUTABLE} PRIVATE
-    # -D${MCU_NAME}    # provided by stm32f4.cmake
-    # -D${MCU_SERIES   # provided by stm32f4.cmake
+    # -D${MCU_NAME} -D${MCU_SERIES   # provided by stm32f4.cmake
     )
 
 #-- Libraries ------------------------------------------------------------------
 include(stm32f4.cmake) # system_stm32f4xx, startup_stm32f401xe # Provides COMMON_FLAGS
 #include(tsrb.cmake)
 #include(printf.cmake)
-
-message("COMMON_FLAGS ${COMMON_FLAGS}")
-
 target_link_libraries(${EXECUTABLE} PUBLIC
     stm32f4
     #tsrb
     #printf
     )
+
+message("COMMON_FLAGS ${COMMON_FLAGS}")
 
 target_compile_options(${EXECUTABLE} PRIVATE
     ${COMMON_FLAGS}
