@@ -22,7 +22,7 @@ SET(CMAKE_ASM_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-gcc)
 SET(CMAKE_LINKER       ${TOOLCHAIN_PATH}arm-none-eabi-gcc)
 SET(CMAKE_OBJCOPY      ${TOOLCHAIN_PATH}arm-none-eabi-objcopy)
 SET(CMAKE_OBJDUMP      ${TOOLCHAIN_PATH}arm-none-eabi-objdump)
-SET(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size   )
+SET(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size)
 
 ENABLE_LANGUAGE(C)
 ENABLE_LANGUAGE(CXX)
