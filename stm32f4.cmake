@@ -7,6 +7,13 @@ set(MCU_CHIP             STM32F4xx)
 set(MCU_NAME             STM32F401xE)
 set(MCU_TARGET           thumbv7m-none-none-eabi) # for clang
 
+set(COMMON_FLAGS
+    -mthumb
+    -mcpu=${MCU_CORE}
+    -g3
+    -ggdb
+)
+
 set(CMSIS_CORE_INC_PATH   CMSIS_5/CMSIS/Core/Include)
 
 set(PLATFORM_PATH         stm32h)
@@ -27,14 +34,6 @@ target_compile_definitions(${STM32F4_TARGET_NAME} PUBLIC
     -D${MCU_NAME}
     -D${MCU_SERIES}
 )
-
-set(COMMON_FLAGS
-    -mthumb
-    -mcpu=${MCU_CORE}
-    -g3
-    -ggdb
-)
-
 target_compile_options(${STM32F4_TARGET_NAME} PRIVATE
     ${COMMON_FLAGS}
     -Wall -Wextra

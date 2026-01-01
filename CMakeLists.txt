@@ -42,25 +42,16 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
     )
 
 #-- Libraries ------------------------------------------------------------------
-# Provides  MCU_CORE cortex-m4, MCU_FAMILY cortex-m, MCU_SERIES STM32F4, 
-# MCU_CHIP STM32F4xx, MCU_NAME STM32F401xE, (for clang) MCU_TARGET thumbv7m-none-none-eabi 
-include(stm32f4.cmake) # system_stm32f4xx, startup_stm32f401xe
+include(stm32f4.cmake) # system_stm32f4xx, startup_stm32f401xe # Provides COMMON_FLAGS
 #include(tsrb.cmake)
 #include(printf.cmake)
+
+message("COMMON_FLAGS ${COMMON_FLAGS}")
 
 target_link_libraries(${EXECUTABLE} PUBLIC
     stm32f4
     #tsrb
     #printf
-    )
-
-#-- Common flags ---------------------------------------------------------------
-set(COMMON_FLAGS
-    -mthumb
-    -mcpu=${MCU_CORE}
-    # $<$<COMPILE_LANGUAGE:CXX>:-std=c++11>  # see CMAKE_C_STANDARD
-    # $<$<COMPILE_LANGUAGE:C>:-std=c11>      # see CMAKE_CXX_STANDARD
-    -g3 -ggdb
     )
 
 target_compile_options(${EXECUTABLE} PRIVATE
