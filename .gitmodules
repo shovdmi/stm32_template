@@ -7,3 +7,6 @@
 [submodule "printf"]
 	path = printf
 	url = https://github.com/mpaland/printf.git
+[submodule "nanoprintf"]
+	path = nanoprintf
+	url = https://github.com/charlesnicholson/nanoprintf.git

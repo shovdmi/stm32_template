@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.8.0)
 
-set(CMAKE_GENERATOR "Unix Makefiles")
-message("generator is set to ${CMAKE_GENERATOR}")
+if(NOT CMAKE_GENERATOR STREQUAL "Unix Makefiles")
+    message(FATAL_ERROR "generator is \"${CMAKE_GENERATOR}\"! You need to run \ncmake .. -G \"Unix Makefiles\"")
+endif()
+message("generator is ${CMAKE_GENERATOR}")
 
 #-- Toolchain ------------------------------------------------------------------
 set(CMAKE_SYSTEM_NAME Generic)
@@ -28,6 +30,7 @@ set(CMAKE_C_COMPILER   ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
 set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-g++ CACHE PATH "" FORCE)
 set(CMAKE_ASM_COMPILER ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
 set(CMAKE_LINKER       ${TOOLCHAIN_PATH}arm-none-eabi-gcc CACHE PATH "" FORCE)
+set(CMAKE_SIZE         ${TOOLCHAIN_PATH}arm-none-eabi-size CACHE PATH "" FORCE)
 
 #-- Project config -------------------------------------------------------------
 project(STM32F401)                 # Project name
