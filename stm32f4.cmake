@@ -18,6 +18,8 @@ set(PLATFORM_PATH         stm32h)
 set(DEVICE_SRC_PATH       stm32h/${MCU_CHIP}/Source)
 set(DEVICE_INC_PATH       stm32h/${MCU_CHIP}/Include)
 
+set(TARGET_DEFAULT_LD_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RETx_FLASH.ld)
+
 add_library(${STM32F4_TARGET_NAME} STATIC EXCLUDE_FROM_ALL
     ${DEVICE_SRC_PATH}/Templates/system_stm32f4xx.c
     ${DEVICE_SRC_PATH}/Templates/gcc/startup_stm32f401xe.s  # enable_language(ASM). Otherwise *.s files are been ignored

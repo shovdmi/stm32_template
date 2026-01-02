@@ -38,7 +38,8 @@ set(COMMON_COMPILE_FLAGS
     -Os
     -g3 -ggdb
     )
-include(lpc111x.cmake) # system_stm32f4xx, startup_stm32f401xe # Provides TARGET_COMMON_FLAGS
+# Provides TARGET_COMMON_FLAGS, TARGET_DEFAULT_LD_SCRIPT
+include(lpc111x.cmake) # system_stm32f4xx, startup_stm32f401xe 
 
 set(COMMON_COMPILE_FLAGS
     ${COMMON_COMPILE_FLAGS}
@@ -50,9 +51,9 @@ message("COMMON_COMPILE_FLAGS ${COMMON_COMPILE_FLAGS}")
 include(printf.cmake)
 
 target_link_libraries(${EXECUTABLE} PUBLIC
-    stm32f4
+    lpc111x
     #tsrb
-    #printf
+    printf
     )
 
 target_compile_options(${EXECUTABLE} PRIVATE
@@ -67,7 +68,7 @@ target_link_options(${EXECUTABLE} PRIVATE
     -nostdlib # -nostartfiles -nodefaultlibs -nolibc nostdlib++
     --specs=nosys.specs
     --specs=nano.specs
-    -T${CMAKE_SOURCE_DIR}/STM32F401RETx_FLASH.ld
+    -T${TARGET_DEFAULT_LD_SCRIPT}
     -Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map
     -Wl,--print-memory-usage
     -Wl,--gc-sections

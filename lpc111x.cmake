@@ -15,10 +15,11 @@ set(TARGET_COMPILE_FLAGS
 
 set(CMSIS_CORE_INC_PATH   CMSIS_5/CMSIS/Core/Include)
 
-#set(PLATFORM_PATH         stm32h)
-#set(DEVICE_SRC_PATH       stm32h/${MCU_CHIP}/Source)
-#set(DEVICE_INC_PATH       stm32h/${MCU_CHIP}/Include)
-set(DEVICE_SRC_PATH       .)
+set(PLATFORM_PATH         lpc111x)
+set(DEVICE_SRC_PATH       lpc111x)
+set(DEVICE_INC_PATH       lpc111x)
+
+set(TARGET_DEFAULT_LD_SCRIPT ${CMAKE_SOURCE_DIR}/${PLATFORM_PATH}/LPC1114.ld)
 
 add_library(${LPC111x_TARGET_NAME} STATIC EXCLUDE_FROM_ALL
     ${DEVICE_SRC_PATH}/startup_LPC11xx.s  # enable_language(ASM). Otherwise *.s files are been ignored
@@ -37,11 +38,9 @@ target_compile_options(${LPC111x_TARGET_NAME} PRIVATE
     ${COMMON_COMPILE_FLAGS}
     ${TARGET_COMPILE_FLAGS}
 )
-target_link_options(${EXECUTABLE} PRIVATE
+target_link_options(${LPC111x_TARGET_NAME} PRIVATE
     ${TARGET_COMPILE_FLAGS}
     ${CMAKE_LINKER_FLAGS} 
-    -flto
-    -T${CMAKE_SOURCE_DIR}/LPC1114.ld
     -Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map
     -Wl,--print-memory-usage
     -Wl,--gc-sections
