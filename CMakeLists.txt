@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.11.0)
 
 if(NOT CMAKE_GENERATOR STREQUAL "Unix Makefiles")
     message(FATAL_ERROR "generator is \"${CMAKE_GENERATOR}\"! You need to run \ncmake .. -G \"Unix Makefiles\"")
@@ -18,11 +18,11 @@ message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 #-- Project config -------------------------------------------------------------
 PROJECT(firmware)                 # Project name
 set(EXECUTABLE ${PROJECT_NAME}.elf)
-set(APP_SRC main.c)
-add_executable(${EXECUTABLE} ${APP_SRC})
+add_executable(${EXECUTABLE})
 
 #-- Project paths --------------------------------------------------------------
 target_sources(${EXECUTABLE} PRIVATE # Repeated calls of 'target_sources' for the same <target> append items
+    main.c
     )
 target_include_directories(${EXECUTABLE} PRIVATE
     )
